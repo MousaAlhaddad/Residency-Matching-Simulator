@@ -1,36 +1,11 @@
+# Load the needed packages
 import random
 import numpy as np
 import pandas as pd
 np.random.seed(42)
 
+# Load the dataset as a DataFrame
 df = pd.read_excel('Programs.xlsx')
-
-
-def describe():
-    print("The total number of positions is " + str(int(df.Positions.sum()))+".")
-    print("The number of possible combinations of regions and specilties is " + str(int(df.describe().Positions.loc["count"]))+".")
-    print()
-    print("There are "+str(len(df.Region.value_counts()))+" different regions.")
-    print("The number of specilties for each region:")
-    print(df.Region.value_counts())
-    print("The number of positions for each region:")
-    print(df.groupby("Region").sum())
-    print()
-    print("There are "+str(len(df.Specialty.value_counts()))+" different specialties.")
-    print("The number of regions for each specialty:")
-    print(df.Specialty.value_counts())
-    print("The number of positions for each specialty:")
-    print(df.groupby("Specialty").sum())
-
-    print()
-    print("The averge number of positions per specialty per regions is " + str(float(df.describe().Positions.loc["mean"]))+".")
-    print("The standard deviation is " + str(float(df.describe().Positions.loc["std"]))+".")
-    print("The min number of positions per specialty per regions is " + str(int(df.describe().Positions.loc["min"]))+".")
-    print("The max number of positions per specialty per regions is " + str(int(df.describe().Positions.loc["max"]))+" ("
-          +str(df[df.Positions==170].Specialty.iloc[0])+", "+str(df[df.Positions==170].Region.iloc[0])+").")
-
-## describe()
-
 
 ## This is to shape the datafarme to be more usefull
 df['Choice']=(df.Specialty + "; " +df.Region)
@@ -133,3 +108,29 @@ writer = pd.ExcelWriter('Matching.xlsx')
 xfdf.to_excel(writer,'Sheet1')
 xfcdf.to_excel(writer,'Sheet2')
 writer.save()
+
+
+
+df = pd.read_excel('Programs.xlsx')
+def describe():
+    print("The total number of positions is " + str(int(df.Positions.sum()))+".")
+    print("The number of possible combinations of regions and specilties is " + str(int(df.describe().Positions.loc["count"]))+".")
+    print()
+    print("There are "+str(len(df.Region.value_counts()))+" different regions.")
+    print("The number of specilties for each region:")
+    print(df.Region.value_counts())
+    print("The number of positions for each region:")
+    print(df.groupby("Region").sum().sort_values('Positions',ascending=False))
+    print()
+    print("There are "+str(len(df.Specialty.value_counts()))+" different specialties.")
+    print("The number of regions for each specialty:")
+    print(df.Specialty.value_counts())
+    print("The number of positions for each specialty:")
+    print(df.groupby("Specialty").sum().sort_values('Positions',ascending=False))
+
+    print()
+    print("The averge number of positions per specialty per regions is " + str(float(df.describe().Positions.loc["mean"]))+".")
+    print("The standard deviation is " + str(float(df.describe().Positions.loc["std"]))+".")
+    print("The min number of positions per specialty per regions is " + str(int(df.describe().Positions.loc["min"]))+".")
+    print("The max number of positions per specialty per regions is " + str(int(df.describe().Positions.loc["max"]))+" ("
+          +str(df[df.Positions==170].Specialty.iloc[0])+", "+str(df[df.Positions==170].Region.iloc[0])+").")
