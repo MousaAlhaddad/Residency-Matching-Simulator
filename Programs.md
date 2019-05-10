@@ -1,3 +1,8 @@
+[Programs.xlsx](Programs.xlsx) contains a historical estimation of the available yearly positions for each medical residency program in Saudi Arabia. 
+
+The following is a summary of the available programs:
+
+
 ```
 The total number of positions is 2664.
 
@@ -120,3 +125,4 @@ The standard deviation is 21.07064122581028.
 The min number of positions per specialty per regions is 1.
 The max number of positions per specialty per regions is 170 (Internal Medicine, ALRiyadh).
 ```
+This summary was generated using the describe() function in the [Matching.py](Matching.py) script.
